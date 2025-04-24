@@ -1,0 +1,252 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+  <meta charset="UTF-8">
+  <title>期中作業目錄菜單</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <style>
+    /* ===== 導覽列樣式 ===== */
+    nav {
+      background: #333;
+      color: #fff;
+      padding: 16px;
+      font-size: 20px;
+      text-align: center;
+      letter-spacing: 2px;
+    }
+    nav a {
+      color: #fff;
+      margin: 0 12px;
+      text-decoration: none;
+      font-weight: bold;
+    }
+    nav a:hover {
+      text-decoration: underline;
+    }
+
+    /* ===== 卡片區塊樣式 ===== */
+    .card-container {
+      display: flex; /* 水平排列四張卡片 */
+      justify-content: space-between;
+      gap: 20px; /* 卡片間距 */
+      margin: 40px auto 30px auto;
+      max-width: 1200px;
+      flex-wrap: wrap; /* 螢幕小時自動換行 */
+    }
+    .card {
+      background: #fff;
+      border-radius: 8px;
+      box-shadow: 0 4px 8px rgba(0,0,0,0.12);
+      width: 23%; /* 四張卡片佔一行 */
+      min-width: 220px;
+      border: 3px solid; /* 邊線顏色由 class 控制 */
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding: 20px 16px 24px 16px;
+      box-sizing: border-box;
+    }
+    /* 四種邊線顏色 */
+    .border-red { border-color: #e74c3c; }
+    .border-blue { border-color: #3498db; }
+    .border-green { border-color: #27ae60; }
+    .border-yellow { border-color: #f1c40f; }
+
+    /* 圓形大頭貼樣式 */
+    .card img.avatar {
+      width: 80px;
+      height: 80px;
+      object-fit: cover;
+      border-radius: 50%; /* 變圓形 */
+      margin-bottom: 14px;
+    }
+    /* 其他圖片樣式 */
+    .card img.sample {
+      width: 100%;
+      max-width: 180px;
+      border-radius: 8px;
+      margin-bottom: 14px;
+    }
+    .card-content {
+      text-align: center;
+      margin-bottom: 12px; /* 內容與按鈕間距 */
+    }
+    /* 按鈕與大頭貼平行排列 */
+    .card-actions {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      gap: 12px;
+    }
+    /* 按鈕樣式：顏色、背景、圓角、hover 效果 */
+    .my-btn {
+      background: linear-gradient(90deg, #6c63ff 0%, #48c6ef 100%);
+      color: #fff;
+      border: none;
+      padding: 8px 20px;
+      border-radius: 20px;
+      font-size: 16px;
+      cursor: pointer;
+      font-weight: bold;
+      transition: background 0.2s;
+    }
+    .my-btn:hover {
+      background: linear-gradient(90deg, #48c6ef 0%, #6c63ff 100%);
+      color: #ffeb3b;
+    }
+
+    /* 卡片間距調整：已用 gap 控制 */
+    .card + .card { margin-left: 0; }
+
+    /* ===== Blog 區塊樣式 ===== */
+    .blog-section {
+      margin: 40px auto;
+      max-width: 1200px;
+      padding: 0 16px;
+    }
+
+    /* ===== Blog 區塊 - minmax 版本 ===== */
+    .blog-list-minmax {
+      display: grid;
+      gap: 20px;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    }
+
+    /* ===== Blog 區塊 - media query 版本 ===== */
+    .blog-list-media {
+      display: grid;
+      gap: 20px;
+      grid-template-columns: 1fr; /* 預設手機一列1張 */
+    }
+
+    /* Blog 共用樣式 */
+    .blog-card {
+      background: #fafafa;
+      border-radius: 8px;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.08);
+      padding: 18px 14px;
+    }
+
+    /* Media Queries for Blog (media query 版本) */
+    @media (min-width: 600px) {
+      .blog-list-media {
+        grid-template-columns: repeat(2, 1fr); /* 平板：一列2張 */
+      }
+    }
+    @media (min-width: 900px) {
+      .blog-list-media {
+        grid-template-columns: repeat(3, 1fr); /* 桌機：一列3張 */
+      }
+    }
+
+    /* ===== 響應式調整 (Card) ===== */
+    @media (max-width: 900px) {
+      .card-container {
+        flex-wrap: wrap;
+        gap: 16px;
+      }
+      .card {
+        width: 48%; /* 螢幕縮小時兩張一行 */
+        margin-bottom: 18px;
+      }
+    }
+    @media (max-width: 600px) {
+      .card-container {
+        flex-direction: column;
+        gap: 14px;
+      }
+      .card {
+        width: 100%; /* 手機一行一張 */
+      }
+    }
+
+    /* ===== iframe 樣式（如需嵌入作品）===== */
+    iframe{
+      resize: both; /* 允許水平和垂直調整大小 */
+      overflow: auto;
+    }
+  </style>
+</head>
+<body>
+  <!-- 導覽列，作為 index.html 頂部目錄菜單 -->
+  <nav>
+    <a href="#">首頁</a>
+    <a href="#">卡片展示</a>
+    <a href="#">Blog 區塊</a>
+    <a href="#">聯絡我們</a>
+  </nav>
+
+  <!-- 卡片區塊，四張卡片水平排列，分別有不同邊線顏色 -->
+  <section class="card-container">
+    <!-- 第一張卡片：紅色邊線，圓形大頭貼，與按鈕平行排列 -->
+    <div class="card border-red">
+      <img class="avatar" src="https://randomuser.me/api/portraits/men/32.jpg" alt="大頭貼">
+      <div class="card-content">
+        <h4>王小明</h4>
+        <p>前端工程師</p>
+      </div>
+      <div class="card-actions">
+        <button class="my-btn">聯絡</button>
+      </div>
+    </div>
+    <!-- 第二張卡片：藍色邊線，插入圖片 -->
+    <div class="card border-blue">
+      <img class="sample" src="https://images.unsplash.com/photo-1506744038136-46273834b3fb?auto=format&fit=crop&w=400&q=80" alt="風景圖">
+      <div class="card-content">
+        <h4>旅遊風景</h4>
+        <p>美麗的山景</p>
+      </div>
+      <div class="card-actions">
+        <button class="my-btn">查看更多</button>
+      </div>
+    </div>
+    <!-- 第三張卡片：綠色邊線，插入圖片 -->
+    <div class="card border-green">
+      <img class="sample" src="https://images.unsplash.com/photo-1519125323398-675f0ddb6308?auto=format&fit=crop&w=400&q=80" alt="城市圖">
+      <div class="card-content">
+        <h4>城市生活</h4>
+        <p>繁忙都市</p>
+      </div>
+      <div class="card-actions">
+        <button class="my-btn">收藏</button>
+      </div>
+    </div>
+    <!-- 第四張卡片：黃色邊線，插入圖片 -->
+    <div class="card border-yellow">
+      <img class="sample" src="https://images.unsplash.com/photo-1465101046530-73398c7f28ca?auto=format&fit=crop&w=400&q=80" alt="美食圖">
+      <div class="card-content">
+        <h4>美食饗宴</h4>
+        <p>享受美味</p>
+      </div>
+      <div class="card-actions">
+        <button class="my-btn">訂購</button>
+      </div>
+    </div>
+  </section>
+
+  <!-- Blog 區塊 -->
+  <section class="blog-section">
+    <h2>Blog 區塊 (minmax 版本)</h2>
+    <div class="blog-list-minmax">
+      <div class="blog-card">Blog 1</div>
+      <div class="blog-card">Blog 2</div>
+      <div class="blog-card">Blog 3</div>
+      <div class="blog-card">Blog 4</div>
+      <div class="blog-card">Blog 5</div>
+      <div class="blog-card">Blog 6</div>
+    </div>
+  </section>
+
+  <section class="blog-section">
+    <h2>Blog 區塊 (media query 版本)</h2>
+    <div class="blog-list-media">
+      <div class="blog-card">Blog 1</div>
+      <div class="blog-card">Blog 2</div>
+      <div class="blog-card">Blog 3</div>
+      <div class="blog-card">Blog 4</div>
+      <div class="blog-card">Blog 5</div>
+      <div class="blog-card">Blog 6</div>
+    </div>
+  </section>
+</body>
+</html>
